@@ -1,0 +1,770 @@
+(dp1
+Vtransfers_out
+p2
+I322952
+sVyellow_cards
+p3
+I0
+sVcode
+p4
+I51507
+sVevent_total
+p5
+I7
+sVgoals_conceded
+p6
+I7
+sVphoto
+p7
+V51507.jpg
+p8
+sVred_cards
+p9
+I0
+sVsaves
+p10
+I0
+sVep_this
+p11
+V0.7
+p12
+sVvalue_form
+p13
+V0.5
+p14
+sVnext_fixture
+p15
+VEverton (H)
+p16
+sVteam_id
+p17
+I1
+sVgoals_scored
+p18
+I0
+sVloans_in
+p19
+I0
+sVweb_name
+p20
+VKoscielny
+p21
+sVvalue_season
+p22
+V4.4
+p23
+sVteam_name
+p24
+VArsenal
+p25
+sVcost_change_start_fall
+p26
+I1
+sVteam_code
+p27
+I3
+sVfixtures
+p28
+(dp29
+Vall
+p30
+(lp31
+(lp32
+V24 Oct 17:30
+p33
+aVGameweek 10
+p34
+aVEverton (H)
+p35
+aa(lp36
+V31 Oct 15:00
+p37
+aVGameweek 11
+p38
+aVSwansea (A)
+p39
+aa(lp40
+V08 Nov 16:00
+p41
+aVGameweek 12
+p42
+aVSpurs (H)
+p43
+aa(lp44
+V21 Nov 15:00
+p45
+aVGameweek 13
+p46
+aVWest Brom (A)
+p47
+aa(lp48
+V29 Nov 16:15
+p49
+aVGameweek 14
+p50
+aVNorwich (A)
+p51
+aa(lp52
+V05 Dec 15:00
+p53
+aVGameweek 15
+p54
+aVSunderland (H)
+p55
+aa(lp56
+V13 Dec 13:30
+p57
+aVGameweek 16
+p58
+aVAston Villa (A)
+p59
+aa(lp60
+V21 Dec 20:00
+p61
+aVGameweek 17
+p62
+aVMan City (H)
+p63
+aa(lp64
+V26 Dec 19:45
+p65
+aVGameweek 18
+p66
+aVSouthampton (A)
+p67
+aa(lp68
+V28 Dec 17:30
+p69
+aVGameweek 19
+p70
+aVBournemouth (H)
+p71
+aa(lp72
+V02 Jan 15:00
+p73
+aVGameweek 20
+p74
+aVNewcastle (H)
+p75
+aa(lp76
+V12 Jan 20:00
+p77
+aVGameweek 21
+p78
+aVLiverpool (A)
+p79
+aa(lp80
+V16 Jan 15:00
+p81
+aVGameweek 22
+p82
+aVStoke (A)
+p83
+aa(lp84
+V23 Jan 15:00
+p85
+aVGameweek 23
+p86
+aVChelsea (H)
+p87
+aa(lp88
+V02 Feb 19:45
+p89
+aVGameweek 24
+p90
+aVSouthampton (H)
+p91
+aa(lp92
+V06 Feb 15:00
+p93
+aVGameweek 25
+p94
+aVBournemouth (A)
+p95
+aa(lp96
+V13 Feb 15:00
+p97
+aVGameweek 26
+p98
+aVLeicester (H)
+p99
+aa(lp100
+V27 Feb 15:00
+p101
+aVGameweek 27
+p102
+aVMan Utd (A)
+p103
+aa(lp104
+V01 Mar 19:45
+p105
+aVGameweek 28
+p106
+aVSwansea (H)
+p107
+aa(lp108
+V05 Mar 15:00
+p109
+aVGameweek 29
+p110
+aVSpurs (A)
+p111
+aa(lp112
+V12 Mar 15:00
+p113
+aVGameweek 30
+p114
+aVWest Brom (H)
+p115
+aa(lp116
+V19 Mar 15:00
+p117
+aVGameweek 31
+p118
+aVEverton (A)
+p119
+aa(lp120
+V02 Apr 15:00
+p121
+aVGameweek 32
+p122
+aVWatford (H)
+p123
+aa(lp124
+V09 Apr 15:00
+p125
+aVGameweek 33
+p126
+aVWest Ham (A)
+p127
+aa(lp128
+V16 Apr 15:00
+p129
+aVGameweek 34
+p130
+aVCrystal Palace (H)
+p131
+aa(lp132
+V23 Apr 15:00
+p133
+aVGameweek 35
+p134
+aVSunderland (A)
+p135
+aa(lp136
+V30 Apr 15:00
+p137
+aVGameweek 36
+p138
+aVNorwich (H)
+p139
+aa(lp140
+V07 May 15:00
+p141
+aVGameweek 37
+p142
+aVMan City (A)
+p143
+aa(lp144
+V15 May 15:00
+p145
+aVGameweek 38
+p146
+aVAston Villa (H)
+p147
+aasVsummary
+p148
+(lp149
+(lp150
+I10
+aVEVE (H)
+p151
+aV24 Oct 17:30
+p152
+aa(lp153
+I11
+aVSWA (A)
+p154
+aV31 Oct 15:00
+p155
+aa(lp156
+I12
+aVTOT (H)
+p157
+aV08 Nov 16:00
+p158
+aassVspecial
+p159
+I00
+sVfirst_name
+p160
+VLaurent
+p161
+sVtransfers_out_event
+p162
+I2675
+sVchance_of_playing_next_round
+p163
+I100
+sVcost_change_start
+p164
+I-1
+sVcost_change_event_fall
+p165
+I0
+sVevent_explain
+p166
+(lp167
+(lp168
+VBonus
+p169
+aI1
+aI1
+aa(lp170
+VClean sheets
+p171
+aI1
+aI4
+aa(lp172
+VMinutes played
+p173
+aI90
+aI2
+aasVtype_name
+p174
+VDefender
+p175
+sVbps
+p176
+I179
+sVid
+p177
+I4
+sVbonus
+p178
+I3
+sVseason_history
+p179
+(lp180
+(lp181
+V2010/11
+p182
+aI2617
+aI2
+aI0
+aI9
+aI36
+aI0
+aI0
+aI0
+aI5
+aI2
+aI0
+aI0
+aI0
+aI0
+aI59
+aI85
+aa(lp183
+V2011/12
+p184
+aI2871
+aI2
+aI1
+aI11
+aI42
+aI2
+aI0
+aI0
+aI8
+aI0
+aI0
+aI5
+aI436
+aI0
+aI58
+aI103
+aa(lp185
+V2012/13
+p186
+aI1675
+aI2
+aI1
+aI7
+aI19
+aI0
+aI0
+aI0
+aI1
+aI1
+aI0
+aI11
+aI285
+aI0
+aI53
+aI88
+aa(lp187
+V2013/14
+p188
+aI2739
+aI2
+aI0
+aI17
+aI26
+aI0
+aI0
+aI0
+aI1
+aI1
+aI0
+aI24
+aI463
+aI228
+aI56
+aI155
+aa(lp189
+V2014/15
+p190
+aI2287
+aI3
+aI0
+aI11
+aI19
+aI0
+aI0
+aI0
+aI4
+aI0
+aI0
+aI15
+aI387
+aI575
+aI61
+aI120
+aasVtotal_points
+p191
+I26
+sVpenalties_missed
+p192
+I0
+sVstatus
+p193
+Va
+sVform
+p194
+V2.7
+p195
+sVown_goals
+p196
+I0
+sVloaned_in
+p197
+I0
+sVcurrent_fixture
+p198
+VWatford (A)
+p199
+sVnow_cost
+p200
+I59
+sVfixture_history
+p201
+(dp202
+g30
+(lp203
+(lp204
+V09 Aug 13:30
+p205
+aI1
+aVWHU(H) 0-2
+p206
+aI90
+aI0
+aI0
+aI0
+aI2
+aI0
+aI0
+aI0
+aI0
+aI0
+aI0
+aI0
+aI1
+aI19
+aI0
+aI60
+aI1
+aa(lp207
+V16 Aug 13:30
+p208
+aI2
+aVCRY(A) 2-1
+p209
+aI90
+aI0
+aI0
+aI0
+aI1
+aI0
+aI0
+aI0
+aI0
+aI0
+aI0
+aI0
+aI15
+aI23
+aI-12032
+aI60
+aI2
+aa(lp210
+V24 Aug 20:00
+p211
+aI3
+aVLIV(H) 0-0
+p212
+aI0
+aI0
+aI0
+aI0
+aI0
+aI0
+aI0
+aI0
+aI0
+aI0
+aI0
+aI0
+aI0
+aI0
+aI-55282
+aI60
+aI0
+aa(lp213
+V29 Aug 12:45
+p214
+aI4
+aVNEW(A) 1-0
+p215
+aI90
+aI0
+aI0
+aI1
+aI0
+aI0
+aI0
+aI0
+aI0
+aI0
+aI0
+aI1
+aI15
+aI28
+aI-93328
+aI60
+aI7
+aa(lp216
+V12 Sep 15:00
+p217
+aI5
+aVSTK(H) 2-0
+p218
+aI90
+aI0
+aI0
+aI1
+aI0
+aI0
+aI0
+aI0
+aI0
+aI0
+aI0
+aI1
+aI26
+aI37
+aI-9223
+aI60
+aI7
+aa(lp219
+V19 Sep 12:45
+p220
+aI6
+aVCHE(A) 0-2
+p221
+aI90
+aI0
+aI0
+aI0
+aI2
+aI0
+aI0
+aI0
+aI0
+aI0
+aI0
+aI0
+aI17
+aI14
+aI-2070
+aI60
+aI1
+aa(lp222
+V26 Sep 15:00
+p223
+aI7
+aVLEI(A) 5-2
+p224
+aI90
+aI0
+aI0
+aI0
+aI2
+aI0
+aI0
+aI0
+aI0
+aI0
+aI0
+aI0
+aI21
+aI21
+aI-5472
+aI60
+aI1
+aa(lp225
+V04 Oct 16:00
+p226
+aI8
+aVMUN(H) 3-0
+p227
+aI0
+aI0
+aI0
+aI0
+aI0
+aI0
+aI0
+aI0
+aI0
+aI0
+aI0
+aI0
+aI0
+aI0
+aI-50640
+aI60
+aI0
+aa(lp228
+V17 Oct 17:30
+p229
+aI9
+aVWAT(A) 3-0
+p230
+aI90
+aI0
+aI0
+aI1
+aI0
+aI0
+aI0
+aI0
+aI0
+aI0
+aI0
+aI1
+aI12
+aI37
+aI-62044
+aI59
+aI7
+aasg148
+(lp231
+(lp232
+I7
+aVLEI (A)
+p233
+aI1
+aa(lp234
+I8
+aVMUN (H)
+p235
+aI0
+aa(lp236
+I9
+aVWAT (A)
+p237
+aI7
+aassVclean_sheets
+p238
+I3
+sVassists
+p239
+I0
+sVselected_by_percent
+p240
+V8.4
+p241
+sVtransfers_in
+p242
+I31524
+sVloans_out
+p243
+I0
+sVnews
+p244
+V
+sVea_index
+p245
+I107
+sVpenalties_saved
+p246
+I0
+sVdreamteam_count
+p247
+I0
+sVin_dreamteam
+p248
+I00
+sVpoints_per_game
+p249
+V3.7
+p250
+sVminutes
+p251
+I630
+sVloaned_out
+p252
+I0
+sVtransfers_in_event
+p253
+I1338
+sVselected_by
+p254
+V8.4
+p255
+sVelement_type
+p256
+I2
+sVep_next
+p257
+V2.7
+p258
+sVteam
+p259
+I1
+sVchance_of_playing_this_round
+p260
+I25
+sVevent_points
+p261
+I7
+sVsecond_name
+p262
+VKoscielny
+p263
+sVcost_change_event
+p264
+I0
+s.

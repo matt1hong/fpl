@@ -1,0 +1,21 @@
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+  color: #00B7FF;
+}
+
+#wrapper {
+	background-color: #d3d3d3;
+}
+
+.gridster .gs-w {
+	background: white;
+	box-shadow: 0 0 5px rgba(0,0,0,0.3)
+}
+
+ul {
+	list-style-type: none;
+}
