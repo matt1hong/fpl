@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Form</title>
+	<script type="text/javascript" src="jquery-1.11.3.min.js"></script>
+	<script type="text/javascript" src="d3.js"></script>
+  <style type="text/css">
+  .bar.positive {
+  fill: steelblue;
+}
+
+.bar.negative {
+  fill: brown;
+}
+
+.axis text {
+  font: 10px sans-serif;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+</style>
+</head>
+<body>
+	<script type="text/javascript">
+var buildOut = function(dataSeriesCount) {
+    var currentXOffsets = [];
+    var current_xIndex = 0;
+    return function(d, y0, y){
+        if(current_xIndex++ % dataSeriesCount === 0){
+            currentXOffsets = [0, 0];
+        }
+        if(y >= 0) {
+            d.y0 = currentXOffsets[1];
+            d.y = y;
+            currentXOffsets[1] += y;
+        } else {
+            d.y0 = currentXOffsets[0] + y;
+            d.y = -y;
+            currentXOffsets[0] += y;
+        }
+    }
+}
+
+function barChart() {
+  // A closure with getter-setter methods
+
+  // Defaults
+  var width = 180;
+  var height = 120;
+  var margin = {
+    top: 5, 
+    right: 0, 
+    bottom: 5, 
+    left: 20
+  };
+  var xMap = function(d) { return d.name; };
+  var yMap = function(d) { return d.value; };
+
+  var color = d3.scale.ordinal()
+    .range(["#98abc5", "#8a89a6", "#7b6888", "#6b486b", "#a05d56", "#d0743c", "#ff8c00"]);
+  var xScale = d3.scale.ordinal()
+    .rangeRoundBands([0, width], .2)
+  var yScale = d3.scale.linear()
+    .range([height, 0])
+
+  function stacked(selection) {
+    var svg = d3.select(this).append("svg")
+        .attr("width", width + margin.left + margin.right)
+        .attr("height", height + margin.top + margin.bottom)
+        .append("g")
+        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+      console.log(d3.keys(dataset[0]).filter(function(key) { return key !== "name"; }))
+      color.domain(d3.keys(dataset[0]).filter(function(key) { return key !== "name"; }));
+
+      dataset.forEach(function(d) {
+        var y0 = 0;
+        d.points = color.domain()
+          .map(function(key) { 
+            return {
+              key: key, 
+              y0: y0, 
+              y1: y0 += +d[key]
+            }; 
+          });
+        d.total = d.points[d.points.length - 1].y1;
+      });
+
+      console.log(dataset)
+
+      // Scales
+      xScale.domain(dataset.map(xMap));
+
+      yScale.domain(d3.extent(dataset, yMap))
+        .nice();
+
+      // x-axis
+      svg.append("g")
+        .attr("class", "x axis")
+        .append("line")
+        .attr("y1", yScale(0))
+        .attr("y2", yScale(0))
+        .attr("x2", width);
+
+      // y-axis
+      var yAxis = d3.svg.axis()
+        .scale(yScale)
+        .orient("left");
+
+      svg.append("g")
+        .attr("class", "y axis")
+        .call(yAxis);
+
+      // Bars
+      var bars = svg.selectAll(".bar").data(dataset).enter()
+        .append("g")
+        .attr("class", "g")
+        .attr("transform", function(d) { return "translate(" + xScale(d.name) + ",0)"; })
+        .selectAll("rect").data(function(d){ return d.points; }).enter()
+
+      // Sections
+      bars.append("rect")
+        .attr("class", function(d) { return d.y1 < 0 ? "bar negative" : "bar positive"; })
+        .attr("y", function(d) { return d.y1 < 0 ? yScale(d.y0) : yScale(d.y1); })
+        .attr("height", function(d) { return Math.abs(yScale(d.y0) - yScale(d.y1)); })
+        .attr("width", xScale.rangeBand())
+        .style("fill", function(d) { return color(d.key); });
+  }
+
+  function chart(selection) {
+    // Generates a chart for each selection
+    // Each selection has different dataset
+
+    selection.each(function(dataset, index) {
+      // Initialize
+      var svg = d3.select(this).append("svg")
+        .attr("width", width + margin.left + margin.right)
+        .attr("height", height + margin.top + margin.bottom)
+        .append("g")
+        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+      // Scales
+      xScale.domain(dataset.map(xMap));
+
+      yScale.domain(d3.extent(dataset, yMap))
+        .nice();
+
+      // x-axis
+      svg.append("g")
+        .attr("class", "x axis")
+        .append("line")
+        .attr("y1", yScale(0))
+        .attr("y2", yScale(0))
+        .attr("x2", width);
+
+      // y-axis
+      var yAxis = d3.svg.axis()
+        .scale(yScale)
+        .orient("left");
+
+      svg.append("g")
+        .attr("class", "y axis")
+        .call(yAxis);
+
+      // Bars
+      var bars = svg.selectAll(".bar").data(dataset).enter()
+        .append("rect")
+        .attr("class", function(d) { return d.value < 0 ? "bar negative" : "bar positive"; })
+        .attr("x", function(d) { return xScale(xMap(d)); })
+        .attr("y", function(d) { return yScale(Math.max(0, yMap(d))); })
+        .attr("height", function(d) { return Math.abs(yScale(yMap(d)) - yScale(0)); })
+        .attr("width", xScale.rangeBand())
+    });
+  }
+
+  chart.width = function(value) {
+    if (!arguments.length) return width;
+    width = value;
+    return chart;
+  };
+
+  chart.height = function(value) {
+    if (!arguments.length) return height;
+    height = value;
+    return chart;
+  };
+
+  chart.margin = function(top, right, bottom, left) {
+    if (!arguments.length) return margin;
+    margin.top = top;
+    margin.right = right;
+    margin.bottom = bottom;
+    margin.left = left;
+    return chart;
+  }
+
+  chart.xMap = function(accessor) {
+    if (!arguments.length) return xMap;
+    xMap = accessor;
+    return xMap;
+  }
+
+  chart.yMap = function(accessor) {
+    if (!arguments.length) return yMap;
+    yMap = accessor;
+    return yMap;
+  }
+
+  return chart;
+}
+
+$(function(){
+var chart = barChart();
+
+d3.json("koscielny.json", function(data) {
+   var games = data.fixture_history["all"];
+
+ var recentGames = games.slice(games.length-7, games.length);
+
+  var recentPoints = [];
+
+  for (var i = 0; i < recentGames.length; i++) {
+    recentPoints.push({
+      name: [recentGames[i][2]],
+      value: recentGames[i][19],
+      value2: -2
+    })
+    console.log(recentGames[i][19])
+  };
+
+  d3.select("body").datum(recentPoints).call(chart)
+})
+// var margin = {top: 5, right: 0, bottom: 5, left: 20},
+//     width = 180 - margin.left - margin.right,
+//     height = 120;
+
+// var x = d3.scale.ordinal()
+//     .rangeRoundBands([0, width], .2);
+
+// var y = d3.scale.linear()
+//     .range([height, 0]);
+
+// var yAxis = d3.svg.axis()
+//     .scale(y)
+//     .orient("left");
+
+// var svg = d3.select("body").append("svg")
+//     .attr("width", width + margin.left + margin.right)
+//     .attr("height", height + margin.top + margin.bottom)
+//   .append("g")
+//     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+// d3.json("koscielny.json", function(error, data) {
+// 	var games = data.fixture_history["all"];
+
+// 	var recentGames = games.slice(games.length-7, games.length);
+
+//   var recentPoints = [];
+
+//   for (var i = 0; i < recentGames.length; i++) {
+//     recentPoints.push({
+//       game: [recentGames[i][2]],
+//       points: recentGames[i][19]
+//     })
+//     console.log(recentGames[i][19])
+//   };
+
+//   y.domain(d3.extent(recentPoints, function(d) { return d.value; })).nice();
+//   x.domain(recentPoints.map(function(d) { return d.name; }));
+
+//   // bars
+//   svg.selectAll(".bar")
+//       .data(recentPoints)
+//     .enter().append("rect")
+//       .attr("class", function(d) { return d.value < 0 ? "bar negative" : "bar positive"; })
+//       .attr("y", function(d) { return y(d.value); })
+//       .attr("x", function(d) { return x(d.name); })
+//       .attr("height", function(d) { return Math.abs(y(d.value) - y(0)); })
+//       .attr("width", x.rangeBand());
+
+//   // y axis
+//   svg.append("g")
+//       .attr("class", "y axis")
+//       .call(yAxis);
+
+//   // x axis
+//   svg.append("g")
+//       .attr("class", "x axis")
+//     .append("line")
+//       .attr("y1", y(0))
+//       .attr("y2", y(0))
+//       .attr("x2", width);
+});
+	</script>
+</body>
+</html>

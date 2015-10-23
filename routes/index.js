@@ -1,8 +1,7 @@
 var express = require('express');
 var request = require('request');
-var bodyParser = require('body-parser');
+var d3 = require('d3');
 var router = express.Router();
-router.use(bodyParser.json());
 
 var opts;
 
@@ -11,12 +10,12 @@ var opts;
 router.get('/', function(req, res) {
 	opts = {
 		url: "http://fantasy.premierleague.com/web/api/elements/"
-			+ req.query.id1,
+			+ req.query.id,
 		timeout: 10000,
 		json:true
 	}
 
-	// Request data from FPL
+	// Request data from Premier League
 	request(opts, function(err, res, body) {
 
 		if (err) {

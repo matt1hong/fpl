@@ -26,6 +26,9 @@ $(function(){ //DOM Ready
         widget_base_dimensions: [200, 200]
     });
 
+    $.get('/users', function(data) {
+      $('li').text(data)
+    })
 });
   </script>
 </html>
