@@ -1,0 +1,45 @@
+title: 'Visual Fantasy'
+author:
+  name: 'Matt Hong'
+  email: mhong19414@gmail.com
+  footer: 'handcrafted by @flamekaizar'
+  footer2: 'Ported by TeamGrav'
+  url: 'http://afnizar.com'
+  url2: 'http://getgrav.org'
+taxonomies:
+  - category
+  - tag
+metadata:
+  description: 'Fantasy Premier League + data vis'
+summary:
+  enabled: true
+  format: short
+  size: 300
+  delimiter: '==='
+redirects:
+  /redirect-test: /
+  '/old/(.*)': /new/$1
+routes:
+  /something/else: /blog/sample-3
+  '/new/(.*)': /blog/$1
+blog:
+  route: /blog
+intro: 'Hello, I’m Saturn. I’m proud to be a part of milky way'
+intro_avatar: avatar.png
+menu:
+  -
+    text: 'External link'
+    link: '#'
+social:
+  -
+    icon: send
+    link: 'mailto:afnizarhilmi@gmail.com'
+  -
+    icon: twitter
+    link: 'http://twitter.com/flamekaizar'
+  -
+    icon: dribbble
+    link: 'http://dribbble.com/flamekaizar'
+  -
+    icon: behance
+    link: 'http://behance.com/flamekaizar'

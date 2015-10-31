@@ -10,7 +10,28 @@
   {{/if}}
   <script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
   <script type="text/javascript" src="js/jquery.gridster.with-extras.js"></script>
+  <script type="text/javascript" src="js/jquery-ui.js"></script>
   <link rel="stylesheet" type="text/css" href="css/jquery.gridster.css">
+    <style type="text/css">
+  .bar.positive {
+  fill: steelblue;
+}
+
+.bar.negative {
+  fill: brown;
+}
+
+.axis text {
+  font: 10px sans-serif;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+</style>
 </head>
 <body>
 
@@ -19,16 +40,31 @@
 
   </body>
     <script type="text/javascript">
-$(function(){ //DOM Ready
+$(function(){
+    $("input[type=submit]")
+      .button()
+      .click(function(event){
+        event.preventDefault();
+
+        var lookFor = $('#tags').val().split(', ');
+        console.log(lookFor)
+
+        for (var i = 0; i < lookFor.length; i++) {
+          var pid = +(lookFor[i]);
+          console.log(pid)
+
+          $.get('/fpl/?id1=' + pid, pid, function(data) {
+            $('li#player' + data.id).html(data.svg);
+            // console.log($('li#player' + i))
+          })
+        };
+      })
 
     $(".gridster ul").gridster({
         widget_margins: [10, 10],
         widget_base_dimensions: [200, 200]
     });
 
-    $.get('/users', function(data) {
-      $('li').text(data)
-    })
 });
   </script>
 </html>
