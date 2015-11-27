@@ -11,7 +11,7 @@ languages:
 home:
   alias: /blog
 pages:
-  theme: saturn
+  theme: visualfantasy
   order:
     by: default
     dir: asc

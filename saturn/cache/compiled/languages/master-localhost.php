@@ -1,7 +1,7 @@
 <?php
 return [
     '@class' => 'Grav\\Common\\Config\\Config',
-    'checksum' => '052d1568d71c6887704a88c25a1b706e:14d37134c3127a65d6ae57693d71d35b',
+    'checksum' => '4eec7ac573efac6fc514fe018b8f8541:14d37134c3127a65d6ae57693d71d35b',
     'files' => [
         'system/languages' => [
             'cs' => [

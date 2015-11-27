@@ -13,7 +13,7 @@ function barChart() {
     bottom: 5, 
     left: 20
   };
-  var xMap = function(d) { return d.name; };
+  var xMap = function(d) { return d.label; };
   var yMap = function(d) { return d.value; };
 
   var color = d3.scale.ordinal()
@@ -30,8 +30,8 @@ function barChart() {
         .append("g")
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-      console.log(d3.keys(dataset[0]).filter(function(key) { return key !== "name"; }))
-      color.domain(d3.keys(dataset[0]).filter(function(key) { return key !== "name"; }));
+      console.log(d3.keys(dataset[0]).filter(function(key) { return key !== "label"; }))
+      color.domain(d3.keys(dataset[0]).filter(function(key) { return key !== "label"; }));
 
       dataset.forEach(function(d) {
         var y0 = 0;
@@ -75,7 +75,7 @@ function barChart() {
       var bars = svg.selectAll(".bar").data(dataset).enter()
         .append("g")
         .attr("class", "g")
-        .attr("transform", function(d) { return "translate(" + xScale(d.name) + ",0)"; })
+        .attr("transform", function(d) { return "translate(" + xScale(d.label) + ",0)"; })
         .selectAll("rect").data(function(d){ return d.points; }).enter()
 
       // Sections
@@ -172,7 +172,11 @@ function barChart() {
     return chart;
   }
 
-  return chart;
+  if (chartType === 'stacked') {
+    return stacked;
+  } else {
+    return chart;
+  }
 }
 
 module.exports = barChart;

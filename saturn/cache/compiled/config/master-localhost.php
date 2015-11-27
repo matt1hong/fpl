@@ -1,8 +1,8 @@
 <?php
 return [
     '@class' => 'Grav\\Common\\Config\\Config',
-    'timestamp' => 1446316221,
-    'checksum' => 'a66a14605f183bd3d4b1ad2e8570a9a3',
+    'timestamp' => 1446511142,
+    'checksum' => 'dc73d3b3c49574a78a4d975525ab3e01',
     'data' => [
         'streams' => [
             'schemes' => [
@@ -530,7 +530,7 @@ return [
                 'alias' => '/blog'
             ],
             'pages' => [
-                'theme' => 'saturn',
+                'theme' => 'visualfantasy',
                 'order' => [
                     'by' => 'default',
                     'dir' => 'asc'
