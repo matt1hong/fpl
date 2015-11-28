@@ -32,10 +32,21 @@ router.get('/', function(req, res) {
 
 		var player = new Player(body);
 
-		var chart = stacked()
-			.xMap(function (d) { return d["Game"]; })
-			.yMap(function (d) { return d["Total"]; });
+		var chart = barChart()
+			.xMap(function(d) {return d.Game;})
+			.yMap(function (d) { 
+				var sum = 0;
+				for (prop in d) {
+					if (d.hasOwnProperty(prop) && prop !== 'Game') {
+						sum += d[prop];
+					}
+				}
+				console.log(sum)
+				return sum;
+			});
 
+			console.log(player.lastName)
+			console.log(player.recentPoints(7))
 		jsdom.env({
 			html: '<body></body>',
 			done: function(err, window){

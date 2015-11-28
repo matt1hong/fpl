@@ -1,3 +1,20 @@
+function Stats (game) {
+	this.label = game[2];
+	this.gameTime = +game[3];
+	this.goals = +game[4];
+	this.assists = +game[5];
+	this.cleanSheets = +game[6];
+	this.conceded = +game[7];
+	this.ownGoals = +game[8];
+	this.penaltiesSaved = +game[9];
+	this.penaltiesMissed = +game[10];
+	this.yellowCards = +game[11];
+	this.redCards = +game[12];
+	this.saves = +game[13];
+	this.bonus = +game[14];
+	this.total = +game[19];
+}
+
 function Player (data) {
 	// Bio
 	this.firstName = data.first_name;
@@ -34,46 +51,23 @@ function Player (data) {
 
 	// Stats
 	var games = data.fixture_history["all"];
-	this.recentStats = function (numGames) {
-		var data = [];
-		var recentGames = games.slice(games.length-7, games.length);
-		for (var i = 0; i < numGames; i++) {
-			data.push({
-				label: recentGames[i][2],
-				gameTime: +recentGames[i][3],
-				goals: +recentGames[i][4],
-				assists: +recentGames[i][5],
-				cleanSheets: +recentGames[i][6],
-				conceded: +recentGames[i][7],
-				ownGoals: +recentGames[i][8],
-				penaltiesSaved: +recentGames[i][9],
-				penaltiesMissed: +recentGames[i][10],
-				yellowCards: +recentGames[i][11],
-				redCards: +recentGames[i][12],
-				saves: +recentGames[i][13],
-				bonus: +recentGames[i][14],
-				total: +recentGames[i][19]
-			});
-		};
-		return data;
-	};
-
 	this.recentPoints = function (numGames) {
 		var PointsSystem;
 		switch (this.position) {
 			case "Goalkeeper":
-				PointsSystem = GoalkeeperPoints;
+				PointsSystem = GoalkeeperPoints; break;
 			case "Defender":
-				PointsSystem = DefenderPoints;
+				PointsSystem = DefenderPoints; break;
 			case "Midfielder":
-				PointsSystem = MidfielderPoints;
+				PointsSystem = MidfielderPoints; break;
 			case "Forward":
-				PointsSystem = ForwardPoints;
+				PointsSystem = ForwardPoints; break;
 		}
-		var stats = this.recentStats(numGames);
+
+		var recentGames = games.slice(games.length - numGames, games.length);
 		var data = [];
 		for (var i = 0; i < numGames; i++) {
-			data.push(new PointsSystem(stats[i]));
+			data.push(new PointsSystem(new Stats(recentGames[i])));
 		};
 		return data;
 	};
@@ -90,7 +84,6 @@ function Points (stats) {
 	this["Yellow cards"] = stats.yellowCards * -1;
 	this["Red cards"] = stats.redCards * -3;
 	this["Own goals"] = stats.ownGoals * -2;
-	this["Total"] = stats.total;
 
 	// Position-dependent points
 	this["Goals"] = 0;
@@ -111,6 +104,7 @@ function DefenderPoints (stats) {
 	this["Goals"] = stats.goals * 6;
 	this["Clean sheets"] = stats.cleanSheets * 4;
 	this["Conceded"] = Math.floor(stats.conceded / 2) * -1;
+	console.log(this["Conceded"])
 }
 
 function MidfielderPoints (stats) {

@@ -121,49 +121,82 @@ function stackedBarChart() {
   var margin = {
     top: 5, 
     right: 0, 
-    bottom: 5, 
+    bottom: 20, 
     left: 20
   };
-  var xMap = function(d) { return d.label; };
-  var yMap = function(d) { return d.value; };
 
-  var color = d3.scale.ordinal()
-    .range(["#98abc5", "#8a89a6", "#7b6888", "#6b486b", "#a05d56", "#d0743c", "#ff8c00"]);
+  var xVar = "label";
+  var yVar = "value";
+  var xMap = function(d) { return d[xVar]; };
+  var yMap = function(d) { return d[yVar]; };
+
   var xScale = d3.scale.ordinal()
-    .rangeRoundBands([0, width], .2)
+    .rangeRoundBands([0, width]);
   var yScale = d3.scale.linear()
     .range([height, 0])
+  var color = d3.scale.category10();
+
+  // var xAxis = d3.svg.axis()
+  //   .scale(xScale)
+  //   .orient("bottom")
+  //   .tickFormat(d3.time.format("%b"));
+  var yAxis = d3.svg.axis()
+    .scale(yScale)
+    .orient("left");
+
+  var buildOut = function(dataSeriesCount) {
+    var currentXOffsets = [];
+    var current_xIndex = 0;
+    return function(d, y0, y){
+        if(current_xIndex++ % dataSeriesCount === 0){
+            currentXOffsets = [0, 0];
+        }
+        if(y >= 0) {
+            d.y0 = currentXOffsets[1];
+            d.y = y;
+            currentXOffsets[1] += y;
+        } else {
+            d.y0 = currentXOffsets[0] + y;
+            d.y = -y;
+            currentXOffsets[0] += y;
+        }
+    }
+  }
 
   function chart(selection) {
-    var svg = d3.select(this).append("svg")
+    selection.each(function(dataset, index) {
+      // Initialize
+      var svg = d3.select(this).append("svg")
         .attr("width", width + margin.left + margin.right)
         .attr("height", height + margin.top + margin.bottom)
         .append("g")
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-      console.log(d3.keys(dataset[0]).filter(function(key) { return key !== "label"; }))
-      color.domain(d3.keys(dataset[0]).filter(function(key) { return key !== "label"; }));
+      var statTypes = d3.keys(dataset[0]).filter(function (key) { return key !== xVar; });
 
-      dataset.forEach(function(d) {
-        var y0 = 0;
-        d.points = color.domain()
-          .map(function(key) { 
-            return {
-              key: key, 
-              y0: y0, 
-              y1: y0 += +d[key]
-            }; 
-          });
-        d.total = d.points[d.points.length - 1].y1;
-      });
+      var layers = d3.layout.stack().out(buildOut(statTypes.length))
+        (statTypes.map(function(c) {
+        return dataset.map(function(d) {
+          return {x: d[xVar], y: d[c]};
+        });
+      }));
+        
+      xScale.domain(layers[0].map(function (d) {return d.x;}));
+      yScale.domain([0, d3.max(layers[layers.length-1], function(d) { return d.y0 + d.y; })]).nice();
+      
+      var layer = svg.selectAll(".layer")
+        .data(layers)
+      .enter().append("g")
+        .attr("class", "layer")
+        .style("fill", function(d, i) { return color(i); })
 
-      console.log(dataset)
-
-      // Scales
-      xScale.domain(dataset.map(xMap));
-
-      yScale.domain(axisBounds(dataset, yMap))
-        .nice();
+      layer.selectAll("rect")
+        .data(function (d) { return d; })
+      .enter().append("rect")
+        .attr("x", function (d) { return xScale(d.x); })
+        .attr("y", function (d) { return yScale(d.y + d.y0); })
+        .attr("height", function (d) { return yScale(d.y0) - yScale(d.y + d.y0); })
+        .attr("width", xScale.rangeBand() - 1);
 
       // x-axis
       svg.append("g")
@@ -173,29 +206,60 @@ function stackedBarChart() {
         .attr("y2", yScale(0))
         .attr("x2", width);
 
-      // y-axis
-      var yAxis = d3.svg.axis()
-        .scale(yScale)
-        .orient("left");
-
       svg.append("g")
         .attr("class", "y axis")
         .call(yAxis);
+      // dataset.forEach(function(d) {
+      //   var y0 = 0;
+      //   d.positive = color.domain()
+      //     .map(function(key) { 
+      //       return {
+      //         key: key, 
+      //         y0: y0, 
+      //         y1: y0 += +d[key]
+      //       }; 
+      //     });
+      //   d.total = d.points[d.points.length - 1].y1;
+      // });
 
-      // Bars
-      var bars = svg.selectAll(".bar").data(dataset).enter()
-        .append("g")
-        .attr("class", "g")
-        .attr("transform", function(d) { return "translate(" + xScale(d.label) + ",0)"; })
-        .selectAll("rect").data(function(d){ return d.points; }).enter()
+      // // Scales
+      // xScale.domain(dataset.map(xMap));
 
-      // Sections
-      bars.append("rect")
-        .attr("class", function(d) { return d.y1 < 0 ? "bar negative" : "bar positive"; })
-        .attr("y", function(d) { return d.y1 < 0 ? yScale(d.y0) : yScale(d.y1); })
-        .attr("height", function(d) { return Math.abs(yScale(d.y0) - yScale(d.y1)); })
-        .attr("width", xScale.rangeBand())
-        .style("fill", function(d) { return color(d.key); });
+      // yScale.domain(axisBounds(dataset, yMap))
+      //   .nice();
+
+      // // x-axis
+      // svg.append("g")
+      //   .attr("class", "x axis")
+      //   .append("line")
+      //   .attr("y1", yScale(0))
+      //   .attr("y2", yScale(0))
+      //   .attr("x2", width);
+
+      // // y-axis
+      // var yAxis = d3.svg.axis()
+      //   .scale(yScale)
+      //   .orient("left");
+
+      // svg.append("g")
+      //   .attr("class", "y axis")
+      //   .call(yAxis);
+
+      // // Bars
+      // var bars = svg.selectAll(".bar").data(dataset).enter()
+      //   .append("g")
+      //   .attr("class", "g")
+      //   .attr("transform", function(d) { return "translate(" + xScale(d.label) + ",0)"; })
+      //   .selectAll("rect").data(function(d){ return d.points; }).enter()
+
+      // // Sections
+      // bars.append("rect")
+      //   .attr("class", function(d) { return d.y1 < 0 ? "bar negative" : "bar positive"; })
+      //   .attr("y", function(d) { return d.y1 < 0 ? yScale(d.y0) : yScale(d.y1); })
+      //   .attr("height", function(d) { return Math.abs(yScale(d.y0) - yScale(d.y1)); })
+      //   .attr("width", xScale.rangeBand())
+      //   .style("fill", function(d) { return color(d.key); });
+    });
   }
 
   chart.width = function(value) {
@@ -216,6 +280,12 @@ function stackedBarChart() {
     margin.right = right;
     margin.bottom = bottom;
     margin.left = left;
+    return chart;
+  };
+
+  chart.xVar = function(name) {
+    if (!arguments.length) return xVar;
+    xVar = name;
     return chart;
   };
 
