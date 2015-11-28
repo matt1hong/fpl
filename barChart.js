@@ -22,8 +22,11 @@ function barChart() {
     bottom: 20, 
     left: 20
   };
-  var xMap = function(d) { return d.label; };
-  var yMap = function(d) { return d.value; };
+
+  var xVar = 'label';
+  var yVar = 'value';
+  var xMap = function(d) { return d[xVar]; };
+  var yMap = function(d) { return d[yVar]; };
 
   var xScale = d3.scale.ordinal()
     .rangeRoundBands([0, width], .2)
@@ -97,6 +100,18 @@ function barChart() {
     return chart;
   };
 
+  chart.xVar = function(name) {
+    if (!arguments.length) return xVar;
+    xVar = name;
+    return chart;
+  };
+
+  chart.yVar = function(name) {
+    if (!arguments.length) return yVar;
+    yVar = name;
+    return chart;
+  };
+
   chart.xMap = function(accessor) {
     if (!arguments.length) return xMap;
     xMap = accessor;
@@ -134,12 +149,8 @@ function stackedBarChart() {
     .rangeRoundBands([0, width]);
   var yScale = d3.scale.linear()
     .range([height, 0])
-  var color = d3.scale.category10();
+  var colorScale = d3.scale.category20();
 
-  // var xAxis = d3.svg.axis()
-  //   .scale(xScale)
-  //   .orient("bottom")
-  //   .tickFormat(d3.time.format("%b"));
   var yAxis = d3.svg.axis()
     .scale(yScale)
     .orient("left");
@@ -180,7 +191,7 @@ function stackedBarChart() {
           return {x: d[xVar], y: d[c]};
         });
       }));
-        
+
       xScale.domain(layers[0].map(function (d) {return d.x;}));
       yScale.domain([0, d3.max(layers[layers.length-1], function(d) { return d.y0 + d.y; })]).nice();
       
@@ -188,7 +199,7 @@ function stackedBarChart() {
         .data(layers)
       .enter().append("g")
         .attr("class", "layer")
-        .style("fill", function(d, i) { return color(i); })
+        .style("fill", function(d, i) { return colorScale(i); })
 
       layer.selectAll("rect")
         .data(function (d) { return d; })
@@ -209,56 +220,6 @@ function stackedBarChart() {
       svg.append("g")
         .attr("class", "y axis")
         .call(yAxis);
-      // dataset.forEach(function(d) {
-      //   var y0 = 0;
-      //   d.positive = color.domain()
-      //     .map(function(key) { 
-      //       return {
-      //         key: key, 
-      //         y0: y0, 
-      //         y1: y0 += +d[key]
-      //       }; 
-      //     });
-      //   d.total = d.points[d.points.length - 1].y1;
-      // });
-
-      // // Scales
-      // xScale.domain(dataset.map(xMap));
-
-      // yScale.domain(axisBounds(dataset, yMap))
-      //   .nice();
-
-      // // x-axis
-      // svg.append("g")
-      //   .attr("class", "x axis")
-      //   .append("line")
-      //   .attr("y1", yScale(0))
-      //   .attr("y2", yScale(0))
-      //   .attr("x2", width);
-
-      // // y-axis
-      // var yAxis = d3.svg.axis()
-      //   .scale(yScale)
-      //   .orient("left");
-
-      // svg.append("g")
-      //   .attr("class", "y axis")
-      //   .call(yAxis);
-
-      // // Bars
-      // var bars = svg.selectAll(".bar").data(dataset).enter()
-      //   .append("g")
-      //   .attr("class", "g")
-      //   .attr("transform", function(d) { return "translate(" + xScale(d.label) + ",0)"; })
-      //   .selectAll("rect").data(function(d){ return d.points; }).enter()
-
-      // // Sections
-      // bars.append("rect")
-      //   .attr("class", function(d) { return d.y1 < 0 ? "bar negative" : "bar positive"; })
-      //   .attr("y", function(d) { return d.y1 < 0 ? yScale(d.y0) : yScale(d.y1); })
-      //   .attr("height", function(d) { return Math.abs(yScale(d.y0) - yScale(d.y1)); })
-      //   .attr("width", xScale.rangeBand())
-      //   .style("fill", function(d) { return color(d.key); });
     });
   }
 
@@ -289,6 +250,12 @@ function stackedBarChart() {
     return chart;
   };
 
+  chart.yVar = function(name) {
+    if (!arguments.length) return yVar;
+    yVar = name;
+    return chart;
+  };
+
   chart.xMap = function(accessor) {
     if (!arguments.length) return xMap;
     xMap = accessor;
@@ -298,6 +265,12 @@ function stackedBarChart() {
   chart.yMap = function(accessor) {
     if (!arguments.length) return yMap;
     yMap = accessor;
+    return chart;
+  };
+
+  chart.colorScale = function(scale) {
+    if (!arguments.length) return colorScale;
+    colorScale = scale;
     return chart;
   };
 

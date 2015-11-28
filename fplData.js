@@ -76,20 +76,25 @@ function Player (data) {
 function Points (stats) {
 	this["Game"] = stats.label;
 
-	stats.gameTime >= 60 ? this["Minutes played"] = 2 : this["Minutes played"] = 1;
-	this["Assists"] = stats.assists * 3;
-	this["Penalties saved"] = stats.penaltiesSaved * 5;
-	this["Penalties missed"] = stats.penaltiesMissed * -2;
-	this["Bonus"] = stats.bonus;
-	this["Yellow cards"] = stats.yellowCards * -1;
-	this["Red cards"] = stats.redCards * -3;
-	this["Own goals"] = stats.ownGoals * -2;
+	this["Minutes played"] = 0;
+	if (stats.gameTime >= 60) {
+		this["Minutes played"] = 2;
+	} else if (stats.gameTime > 0) {
+		this["Minutes played"] = 1;
+	}
 
-	// Position-dependent points
+	this["Assists"] = stats.assists * 3;
 	this["Goals"] = 0;
 	this["Clean sheets"] = 0;
 	this["Saves"] = 0;
+	this["Penalties saved"] = stats.penaltiesSaved * 5;
+	this["Bonus"] = stats.bonus;
+
 	this["Conceded"] = 0;
+	this["Yellow cards"] = stats.yellowCards * -1;
+	this["Red cards"] = stats.redCards * -3;
+	this["Own goals"] = stats.ownGoals * -2;
+	this["Penalties missed"] = stats.penaltiesMissed * -2;
 }
 
 function GoalkeeperPoints (stats) {
@@ -104,7 +109,6 @@ function DefenderPoints (stats) {
 	this["Goals"] = stats.goals * 6;
 	this["Clean sheets"] = stats.cleanSheets * 4;
 	this["Conceded"] = Math.floor(stats.conceded / 2) * -1;
-	console.log(this["Conceded"])
 }
 
 function MidfielderPoints (stats) {

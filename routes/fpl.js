@@ -32,19 +32,35 @@ router.get('/', function(req, res) {
 
 		var player = new Player(body);
 
-		var chart = barChart()
-			.xMap(function(d) {return d.Game;})
-			.yMap(function (d) { 
-				var sum = 0;
-				for (prop in d) {
-					if (d.hasOwnProperty(prop) && prop !== 'Game') {
-						sum += d[prop];
-					}
-				}
-				console.log(sum)
-				return sum;
-			});
+		// var chart = barChart()
+		// 	.xMap(function(d) {return d.Game;})
+		// 	.yMap(function (d) { 
+		// 		var sum = 0;
+		// 		for (prop in d) {
+		// 			if (d.hasOwnProperty(prop) && prop !== 'Game') {
+		// 				sum += d[prop];
+		// 			}
+		// 		}
+		// 		return sum;
+		// 	});
 
+		var chart = stacked()
+			.xVar('Game')
+			.colorScale(d3.scale.ordinal().range([
+				'#d9d9d9', // Minutes played, grey
+			    '#9ecae1', // Assists, light blue
+			    '#3182bd', // Goals, blue
+			    '#31a354', // Clean sheets, green
+			    '#a1d99b', // Saves, light green
+			    '#e377c2', // Penalties saved, pink
+			    '#f7b6d2', // Bonus, light pink
+
+			    '#fdd0a2', // Conceded, light yellow
+			    '#fd8d3c', // Yellow cards, orange
+			    '#fd8d3c', // Red cards, orange
+			    '#e6550d', // Own goals, red
+			    '#756bb1' // Penalties missed, purple
+		    ]));
 			console.log(player.lastName)
 			console.log(player.recentPoints(7))
 		jsdom.env({
