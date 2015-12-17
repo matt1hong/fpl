@@ -186,9 +186,9 @@ function stackedBarChart() {
       var statTypes = d3.keys(dataset[0]).filter(function (key) { return key !== xVar; });
 
       var layers = d3.layout.stack().out(buildOut(statTypes.length))
-        (statTypes.map(function(c) {
+        (statTypes.map(function(statType) {
         return dataset.map(function(d) {
-          return {x: d[xVar], y: d[c]};
+          return {x: d[xVar], title: statType, y: d[statType]};
         });
       }));
 
@@ -207,7 +207,9 @@ function stackedBarChart() {
         .attr("x", function (d) { return xScale(d.x); })
         .attr("y", function (d) { return yScale(d.y + d.y0); })
         .attr("height", function (d) { return yScale(d.y0) - yScale(d.y + d.y0); })
-        .attr("width", xScale.rangeBand() - 1);
+        .attr("width", xScale.rangeBand() - 1)
+        .append("svg:title")
+        .text(function (d) { return d.x + " " + d.title + ": " + d.y; })
 
       // x-axis
       svg.append("g")

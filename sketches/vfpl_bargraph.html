@@ -6,7 +6,7 @@
 	<script type="text/javascript" src="jquery-1.11.3.min.js"></script>
 	<script type="text/javascript" src="d3.js"></script>
   <style type="text/css">
-  .bar.positive {
+.bar.positive {
   fill: steelblue;
 }
 
@@ -73,8 +73,6 @@ function barChart() {
           });
         d.total = d.points[d.points.length - 1].y1;
       });
-
-      console.log(dataset)
 
       // Scales
       xScale.domain(dataset.map(xMap));
