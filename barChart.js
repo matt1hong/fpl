@@ -270,6 +270,12 @@ function stackedBarChart() {
     return chart;
   };
 
+  chart.yAxis = function(axis) {
+    if (!arguments.length) return yAxis;
+    yAxis = axis.scale(yScale);
+    return chart;
+  }
+
   chart.colorScale = function(scale) {
     if (!arguments.length) return colorScale;
     colorScale = scale;

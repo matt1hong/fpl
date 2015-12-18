@@ -14,6 +14,8 @@
   <script type="text/javascript" src="js/jquery.gridster.with-extras.js"></script>
   <script type="text/javascript" src="js/jquery-ui.js"></script>
   <script type="text/javascript" src="js/jquery.tipsy.js"></script>
+  <script type="text/javascript" src="js/jquery.tipsy.js"></script>
+  <script type="text/javascript" src="js/d3.js"></script>
   <link rel="stylesheet" type="text/css" href="css/jquery.gridster.css">
     <style type="text/css">
   .bar.positive {
@@ -86,6 +88,12 @@ $(function(){
         }
       });
 
+    // For scale redraw
+    var maxList = [];
+    var lastMax = 0;
+    var nowMax = 0;
+    var height = 120;
+
     $("input[type=submit]")
       .button()
       .click(function(event){
@@ -98,27 +106,45 @@ $(function(){
           if(lookFor[i]){ //string might be empty
             var pid = +(players[lookFor[i]]);
 
-            $.get('/fpl/?id1=' + pid, pid, function(data) {
-              $('li#player' + data.id).html(data.svg);
-              $('li#player' + data.id + ' rect')
+            $.get('/fpl/?id1=' + pid, pid, function(result) {
+              $('li#player' + result.id).html(result.svg);
+
+              maxList.push({id: result.id, max: result.max});
+              nowMax = d3.max(maxList, function (d) { return d.max; })
+              if (lastMax !== 0 && lastMax !== nowMax) {
+                redrawScales(nowMax);
+              }
+              lastMax = nowMax;
+
+              // Tooltips
+              $('li#player' + result.id + ' rect')
                 .tipsy({
                   title: function() {
                     var svgTitle = $(this).children();
-                    var originalTitle = svgTitle.text();
-                    if (originalTitle) {
-                      $(this).attr('originalTitle', originalTitle);
+                    if (svgTitle.text()) {
+                      // Cut & paste over original tooltip at first go
+                      $(this).attr('originalTitle', svgTitle.text());
                       svgTitle.empty();
-                      console.log('s')
                     }
                     return $(this).attr('originalTitle'); 
                   },
-                  gravity: 'w',
-                  offset: 24 
+                  gravity: 'e'
                 });
             })
           }
         };
-      })
+      });
+
+    function redrawScales(max) {
+      var yScale = d3.scale.linear()
+        .domain([0, max])
+        .range([height, 0]);
+      var yAxis = d3.svg.axis()
+        .scale(yScale)
+        .orient("left")
+        .ticks(3);
+      d3.selectAll(".y").transition().duration(300).call(yAxis);
+    }
 
     $(".gridster ul").gridster({
         widget_margins: [10, 10],
