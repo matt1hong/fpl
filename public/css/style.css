@@ -9,11 +9,12 @@ a {
 
 #wrapper {
 	background-color: #d3d3d3;
+	padding-top:10px;
 }
 
 .gridster .gs-w {
 	background: white;
-	box-shadow: 0 0 5px rgba(0,0,0,0.3)
+	box-shadow: 0 0 5px rgba(0,0,0,0.3);
 }
 
 ul {

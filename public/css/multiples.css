@@ -1,0 +1,19 @@
+.bar.positive {
+  fill: white;
+  shape-rendering: crispEdges;
+}
+
+.bar.negative {
+  fill: white;
+}
+
+.axis text {
+  font: 10px sans-serif;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}

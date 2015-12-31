@@ -193,8 +193,8 @@ function stackedBarChart() {
       }));
 
       xScale.domain(layers[0].map(function (d) {return d.x;}));
-      yScale.domain([0, d3.max(layers[layers.length-1], function(d) { return d.y0 + d.y; })]).nice();
-      
+      yScale.domain([0, d3.max(layers[layers.length-1], function(d) { return d.y0 + d.y; })]);
+
       var layer = svg.selectAll(".layer")
         .data(layers)
       .enter().append("g")

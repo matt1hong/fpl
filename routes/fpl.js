@@ -65,7 +65,6 @@ router.get('/', function(req, res) {
 				d3.select(el).datum(player.recentPoints(7)).call(stackedChart)
 				res.send({
 					svg: window.document.querySelector('body').innerHTML,
-					id: req.query.id1,
 					max: d3.max(player.recentPoints(7), sum)
 				})
 			}
