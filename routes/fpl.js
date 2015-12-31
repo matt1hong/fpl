@@ -38,24 +38,26 @@ router.get('/', function(req, res) {
 			.yMap(sum);
 
 		var stackedChart = stacked()
+			.height(114)
+			.width(171)
 			.xVar(label)
 			.yAxis(d3.svg.axis()
 				.orient('left')
 				.ticks(3))
 			.colorScale(d3.scale.ordinal().range([
 				'#d9d9d9', // Minutes played, grey
-		    '#9ecae1', // Assists, light blue
-		    '#3182bd', // Goals, blue
-		    '#31a354', // Clean sheets, green
-		    '#a1d99b', // Saves, light green
-		    '#e377c2', // Penalties saved, pink
-		    '#f7b6d2', // Bonus, light pink
+			    '#9ecae1', // Assists, light blue
+			    '#3182bd', // Goals, blue
+			    '#31a354', // Clean sheets, green
+			    '#a1d99b', // Saves, light green
+			    '#e377c2', // Penalties saved, pink
+			    '#f7b6d2', // Bonus, light pink
 
-		    '#fdd0a2', // Conceded, light yellow
-		    '#fd8d3c', // Yellow cards, orange
-		    '#fd8d3c', // Red cards, orange
-		    '#e6550d', // Own goals, red
-		    '#756bb1' // Penalties missed, purple
+			    '#fdd0a2', // Conceded, light yellow
+			    '#fd8d3c', // Yellow cards, orange
+			    '#fd8d3c', // Red cards, orange
+			    '#e6550d', // Own goals, red
+			    '#756bb1' // Penalties missed, purple
 	    ]));
 
 		jsdom.env({

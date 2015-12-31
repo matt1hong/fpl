@@ -47,8 +47,7 @@ function barChart() {
 
       // Scales
       xScale.domain(dataset.map(xMap));
-      yScale.domain(axisBounds(dataset, yMap))
-        .nice();
+      yScale.domain(axisBounds(dataset, yMap));
 
       // x-axis
       svg.append("g")
@@ -204,6 +203,8 @@ function stackedBarChart() {
       layer.selectAll("rect")
         .data(function (d) { return d; })
       .enter().append("rect")
+        .attr("data-y", function (d) { return d.y; })
+        .attr("data-y0", function (d) { return d.y0; })
         .attr("x", function (d) { return xScale(d.x); })
         .attr("y", function (d) { return yScale(d.y + d.y0); })
         .attr("height", function (d) { return yScale(d.y0) - yScale(d.y + d.y0); })
@@ -228,12 +229,16 @@ function stackedBarChart() {
   chart.width = function(value) {
     if (!arguments.length) return width;
     width = value;
+    xScale = d3.scale.ordinal()
+      .rangeRoundBands([0, value]);
     return chart;
   };
 
   chart.height = function(value) {
     if (!arguments.length) return height;
     height = value;
+    yScale = d3.scale.linear()
+      .range([value, 0])
     return chart;
   };
 
