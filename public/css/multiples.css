@@ -3,6 +3,10 @@ p {
 	font-style: italic;
 }
 
+body {
+	background: #d3d3d3;
+}
+
 .bar.positive {
   fill: white;
   shape-rendering: crispEdges;

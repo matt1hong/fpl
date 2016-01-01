@@ -16,9 +16,10 @@ function Stats (game) {
 }
 
 function Player (data) {
+	// console.log(data.fixture_history.summary)
 	// Bio
 	this.firstName = data.first_name;
-	this.lastName = data.second_name;
+	this.lastName = data.web_name;
 	this.id = data.id;
 	this.position = data.type_name;
 	this.team = +data.team;

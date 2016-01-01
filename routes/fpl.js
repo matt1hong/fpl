@@ -16,7 +16,7 @@ var opts;
 router.get('/', function(req, res) {
 	opts = {
 		url: "http://fantasy.premierleague.com/web/api/elements/"
-			+ req.query.id1,
+			+ req.query.id,
 		timeout: 10000,
 		json:true
 	}
@@ -69,7 +69,8 @@ router.get('/', function(req, res) {
 				res.send({
 					svg: window.document.querySelector('body').innerHTML,
 					max: d3.max(player.recentPoints(7), posSum),
-					min: d3.min(player.recentPoints(7), negSum)
+					min: d3.min(player.recentPoints(7), negSum),
+					lastName: player.lastName
 				})
 			}
 		});
