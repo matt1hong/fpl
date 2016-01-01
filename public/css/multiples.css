@@ -1,3 +1,8 @@
+p {
+	font-family: "PT Sans", sans-serif;
+	font-style: italic;
+}
+
 .bar.positive {
   fill: white;
   shape-rendering: crispEdges;
@@ -20,4 +25,8 @@
 
 .gridster li {
   padding: 12px 0 0 4px;
+}
+
+.gridster li > p {
+	margin-left: 19px;
 }

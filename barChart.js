@@ -133,9 +133,9 @@ function stackedBarChart() {
   var width = 180;
   var height = 120;
   var margin = {
-    top: 5, 
+    top: 0, 
     right: 0, 
-    bottom: 20, 
+    bottom: 4, 
     left: 20
   };
 

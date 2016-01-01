@@ -40,6 +40,7 @@ router.get('/', function(req, res) {
 		var stackedChart = stacked()
 			.height(114)
 			.width(171)
+			.margin(5,0,4,20)
 			.xVar(label)
 			.yAxis(d3.svg.axis()
 				.orient('left')
