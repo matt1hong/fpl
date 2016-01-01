@@ -191,8 +191,11 @@ function stackedBarChart() {
         });
       }));
 
+      var min = d3.min(layers.slice(7), function (d1) { return d3.min(d1, function (d2) { return d2.y0; }); });
+      var max = d3.max(layers[layers.length-1], function (d) { return d.y0 + d.y; }) 
+
       xScale.domain(layers[0].map(function (d) {return d.x;}));
-      yScale.domain([0, d3.max(layers[layers.length-1], function(d) { return d.y0 + d.y; })]);
+      yScale.domain([min, max]);
 
       var layer = svg.selectAll(".layer")
         .data(layers)

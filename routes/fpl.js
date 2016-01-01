@@ -35,7 +35,7 @@ router.get('/', function(req, res) {
 
 		var chart = barChart()
 			.xMap(function(d) {return d[label];})
-			.yMap(sum);
+			.yMap(function(d) {return posSum(d) + negSum(d);});
 
 		var stackedChart = stacked()
 			.height(114)
@@ -67,15 +67,26 @@ router.get('/', function(req, res) {
 				d3.select(el).datum(player.recentPoints(7)).call(stackedChart)
 				res.send({
 					svg: window.document.querySelector('body').innerHTML,
-					max: d3.max(player.recentPoints(7), sum)
+					max: d3.max(player.recentPoints(7), posSum),
+					min: d3.min(player.recentPoints(7), negSum)
 				})
 			}
 		});
 
-		function sum (d) {
+		function posSum (d) {
 			var total = 0;
 				for (prop in d) {
-					if (d.hasOwnProperty(prop) && prop !== label) {
+					if (d.hasOwnProperty(prop) && prop !== label && d[prop] > 0) {
+						total += d[prop];
+					}
+				}
+			return total;
+		}
+
+		function negSum (d) {
+			var total = 0;
+				for (prop in d) {
+					if (d.hasOwnProperty(prop) && prop !== label && d[prop] < 0) {
 						total += d[prop];
 					}
 				}

@@ -49,8 +49,11 @@ $(function(){
 
     // For scale redraw
     var maxList = [];
+    var minList = [];
     var lastMax = 0;
+    var lastMin = 0;
     var nowMax = 0;
+    var nowMin = 0;
     var height = 114;
 
     $("#tags")
@@ -72,11 +75,12 @@ $(function(){
                   $('li#player' + pid).html(result.svg);
 
                   maxList.push({id: pid, max: result.max});
+                  minList.push({id: pid, min: result.min});
                   nowMax = d3.max(maxList, function (d) { return d.max; })
-                  if (lastMax !== 0 && lastMax !== nowMax) {
-                    redrawScales(nowMax);
-                  }
+                  nowMin = d3.min(minList, function (d) { return d.min; })
+                  redrawScales(nowMin, nowMax);
                   lastMax = nowMax;
+                  lastMin = nowMin;
 
                   // Tooltips
                   $('li#player' + pid + ' rect')
@@ -99,15 +103,21 @@ $(function(){
         }
       });
 
-    function redrawScales(max) {
+    function redrawScales(min, max) {
       var yScale = d3.scale.linear()
-        .domain([0, max])
+        .domain([min, max])
         .range([height, 0]);
+
       var yAxis = d3.svg.axis()
         .scale(yScale)
         .orient("left")
         .ticks(3);
       d3.selectAll(".y").transition().duration(300).call(yAxis);
+
+      d3.selectAll(".x line").transition().duration(300)
+        .attr("y1", yScale(0))
+        .attr("y2", yScale(0));
+
       d3.selectAll("rect").transition().duration(300)
         .attr("y", function () {
           return yScale(+d.call(this, 'data-y') + +d.call(this, 'data-y0')); 
