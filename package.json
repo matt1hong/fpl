@@ -14,7 +14,8 @@
     "debug": "~2.1.0",
     "express-handlebars": "~2.0.1",
     "d3": "~3.5.6",
-    "request": "~2.55.0"
+    "request": "~2.55.0",
+    "jsdom-no-contextify": "3.1.0"
   },
   "devDependencies": {
     "grunt": "~0.4.5",
