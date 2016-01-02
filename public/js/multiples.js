@@ -102,12 +102,7 @@ $(function(){
               $(this).attr('originalTitle', svgTitle.text());
               svgTitle.empty();
             }
-            if ($(this).attr('originalTitle')) {
-              // If it doesn't fall to this block, data-y was 0
-              return $(this).attr('originalTitle');
-            } else {
-              return '';
-            }
+            return $(this).attr('originalTitle') || '';
           },
           gravity: 'e'
         });
