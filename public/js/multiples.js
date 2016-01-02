@@ -103,10 +103,11 @@ $(function(){
               svgTitle.empty();
             }
             if ($(this).attr('originalTitle')) {
-              console.log($(this).attr('originalTitle'));
               // If it doesn't fall to this block, data-y was 0
               return $(this).attr('originalTitle');
-            } 
+            } else {
+              return '';
+            }
           },
           gravity: 'e'
         });
