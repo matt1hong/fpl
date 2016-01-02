@@ -213,7 +213,7 @@ function stackedBarChart() {
         .attr("height", function (d) { return yScale(d.y0) - yScale(d.y + d.y0); })
         .attr("width", xScale.rangeBand() - 1)
         .append("svg:title")
-        .text(function (d) { return d.y !== 0 ? d.x + " " + d.title + ": " + d.y : ""; })
+        .text(function (d) { if (d.y !== 0) return d.x + " " + d.title + ": " + d.y; })
 
       // x-axis
       svg.append("g")
