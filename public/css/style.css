@@ -1,6 +1,6 @@
 body {
   padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  font: 14px "PT Sans", sans-serif;
 }
 
 .overlay {
@@ -19,7 +19,7 @@ a {
 }
 
 #wrapper {
-	background-color: #d3d3d3;
+	background-color: #D3D3D3;
 	padding-top:10px;
 }
 
