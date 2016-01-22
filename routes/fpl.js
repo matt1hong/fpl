@@ -13,6 +13,8 @@ var router = express.Router();
 
 var opts;
 
+var label = 'Game';
+
 router.get('/', function(req, res) {
 	opts = {
 		url: "http://fantasy.premierleague.com/web/api/elements/"
@@ -21,8 +23,8 @@ router.get('/', function(req, res) {
 		json:true
 	}
 
-	var label = 'Game';
 	var recentPoints = [];
+
 	// Request data from Premier League
 	request(opts, function(error, response, body) {
 
@@ -74,27 +76,27 @@ router.get('/', function(req, res) {
 				})
 			}
 		});
-
-		function posSum (d) {
-			var total = 0;
-				for (prop in d) {
-					if (d.hasOwnProperty(prop) && prop !== label && d[prop] > 0) {
-						total += d[prop];
-					}
-				}
-			return total;
-		}
-
-		function negSum (d) {
-			var total = 0;
-				for (prop in d) {
-					if (d.hasOwnProperty(prop) && prop !== label && d[prop] < 0) {
-						total += d[prop];
-					}
-				}
-			return total;
-		}
 	})
 });
+
+function posSum (d) {
+	var total = 0;
+		for (prop in d) {
+			if (d.hasOwnProperty(prop) && prop !== label && d[prop] > 0) {
+				total += d[prop];
+			}
+		}
+	return total;
+}
+
+function negSum (d) {
+	var total = 0;
+		for (prop in d) {
+			if (d.hasOwnProperty(prop) && prop !== label && d[prop] < 0) {
+				total += d[prop];
+			}
+		}
+	return total;
+}
 
 module.exports = router;
