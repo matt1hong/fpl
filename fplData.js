@@ -1,22 +1,21 @@
-function Stats (game) {
-	this.label = game[2];
-	this.gameTime = +game[3];
-	this.goals = +game[4];
-	this.assists = +game[5];
-	this.cleanSheets = +game[6];
-	this.conceded = +game[7];
-	this.ownGoals = +game[8];
-	this.penaltiesSaved = +game[9];
-	this.penaltiesMissed = +game[10];
-	this.yellowCards = +game[11];
-	this.redCards = +game[12];
-	this.saves = +game[13];
-	this.bonus = +game[14];
-	this.total = +game[19];
+function Stats (game, uniq) {
+	this.label = game[2] || "DNP" + uniq;
+	this.gameTime = +game[3] || 0;
+	this.goals = +game[4] || 0;
+	this.assists = +game[5]|| 0;
+	this.cleanSheets = +game[6] || 0;
+	this.conceded = +game[7] || 0;
+	this.ownGoals = +game[8] || 0;
+	this.penaltiesSaved = +game[9] || 0;
+	this.penaltiesMissed = +game[10] || 0;
+	this.yellowCards = +game[11] || 0;
+	this.redCards = +game[12]|| 0;
+	this.saves = +game[13] || 0;
+	this.bonus = +game[14] || 0;
+	this.total = +game[19] || 0;
 }
 
 function Player (data) {
-	// console.log(data.fixture_history.summary)
 	// Bio
 	this.firstName = data.first_name;
 	this.lastName = data.web_name;
@@ -68,7 +67,11 @@ function Player (data) {
 		var recentGames = games.slice(games.length - numGames, games.length);
 		var data = [];
 		for (var i = 0; i < numGames; i++) {
-			data.push(new PointsSystem(new Stats(recentGames[i])));
+			if (recentGames[i]) {
+				data.push(new PointsSystem(new Stats(recentGames[i])));
+			} else {
+				data.push(new PointsSystem(new Stats(Array.apply(null, Array(20)).map(Number.prototype.valueOf,0), i)));
+			}
 		};
 		return data;
 	};

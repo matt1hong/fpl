@@ -62,6 +62,10 @@ router.get('/', function(req, res) {
 			    '#e6550d', // Own goals, red
 			    '#756bb1' // Penalties missed, purple
 	    ]));
+	   if(req.query.id === '655') {
+
+	   console.log(player.recentPoints(7));
+	   }
 
 		jsdom.env({
 			html: '<body></body>',
