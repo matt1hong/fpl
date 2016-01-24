@@ -3,7 +3,7 @@ $(function(document){
   var gridster = $(".gridster ul").gridster({
       max_cols: 4,
       widget_margins: [8, 8],
-      widget_base_dimensions: [204, 154]
+      widget_base_dimensions: [188, 154]
   }).data('gridster');
   $('li').hide();
   console.log(gridster.serialize())
