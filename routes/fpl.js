@@ -40,8 +40,8 @@ router.get('/', function(req, res) {
 			.yMap(function(d) {return posSum(d) + negSum(d);});
 
 		var stackedChart = stacked()
-			.height(114)
-			.width(171)
+			.height(100)
+			.width(150)
 			.margin(5,0,4,20)
 			.xVar(label)
 			.yAxis(d3.svg.axis()

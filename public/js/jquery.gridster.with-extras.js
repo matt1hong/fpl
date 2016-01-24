@@ -2054,6 +2054,15 @@
         if (this.options.autogrow_cols) {
             this.drag_api.set_limits(this.cols * this.min_widget_width);
         }
+
+        // D3
+        removeY();
+        function removeY() {
+            $("[data-col='1'] .tick text").show(400);
+            $("[data-col='2'] .tick text").hide(400);
+            $("[data-col='3'] .tick text").hide(400);
+            $("[data-col='4'] .tick text").hide(400);
+        }
     };
 
 

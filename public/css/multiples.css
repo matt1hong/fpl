@@ -12,7 +12,7 @@ input:focus {
 }
 
 body {
-	background: #D3D3D3;
+	background: #A4A4A4;
 }
 
 .bar.positive {
@@ -36,9 +36,9 @@ body {
 }
 
 .gridster li {
-  padding: 12px 0 0 4px;
+  padding: 9px 0 0 1px;
 }
 
 .gridster li > p {
-	margin-left: 19px;
+	margin-left: 10px;
 }

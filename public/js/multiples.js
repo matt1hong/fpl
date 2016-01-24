@@ -1,9 +1,9 @@
-$(function(){
+$(function(document){
 
   var gridster = $(".gridster ul").gridster({
       max_cols: 4,
-      widget_margins: [10, 10],
-      widget_base_dimensions: [216, 175]
+      widget_margins: [8, 8],
+      widget_base_dimensions: [188, 154]
   }).data('gridster');
   $('li').hide();
   console.log(gridster.serialize())
@@ -74,11 +74,6 @@ $(function(){
       }
     });
 
-  // Delete
-  $(".gs-w")
-    .mousedown(function () { $(".units-row").fadeOut(300); $('.overlay').fadeIn(300); })
-    .mouseup(function () { $(".units-row").fadeIn(300); $('.overlay').fadeOut(300); });
-
   function split( val ) {
     return val.split( /,\s*/ );
   }
@@ -131,7 +126,10 @@ $(function(){
             return $(this).attr('originalTitle') || '';
           },
           gravity: 'e'
-        });
+        })
+
+      // // Redraw axis
+      removeY();
     });
   }
 
@@ -152,7 +150,7 @@ $(function(){
   }
 
   function redrawToScale(min, max) {
-    var height = 114;
+    var height = 100;
 
     var yScale = d3.scale.linear()
       .domain([min, max])
@@ -180,9 +178,11 @@ $(function(){
       });
     }
 
-    function capitalizeEachWord(str) {
-      return str.replace(/\w\S*/g, function(txt) {
-        return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
-      });
-    }
+  function removeY() {
+    console.log('msg')
+    $("[data-col='1'] .tick text").show(400);
+    $("[data-col='2'] .tick text").hide(400);
+    $("[data-col='3'] .tick text").hide(400);
+    $("[data-col='4'] .tick text").hide(400);
+  }
 });

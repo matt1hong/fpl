@@ -2001,6 +2001,15 @@
         this.$helper.add(this.$player).add(this.$wrapper)
             .removeClass('dragging');
 
+        // D3
+        removeY();
+        function removeY() {
+            $("[data-col='1'] .tick text").show(400);
+            $("[data-col='2'] .tick text").hide(400);
+            $("[data-col='3'] .tick text").hide(400);
+            $("[data-col='4'] .tick text").hide(400);
+        }
+
         ui.position.left = ui.position.left + this.baseX;
         ui.position.top = ui.position.top + this.baseY;
         this.colliders_data = this.collision_api.get_closest_colliders(
