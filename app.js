@@ -7,6 +7,11 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var exphbs  = require('express-handlebars');
+var http = require("http");
+
+setInterval(function() {
+    http.get("http://young-temple-4348.herokuapp.com");
+}, 300000);
 
 var routes = require('./routes/index');
 var fpl = require('./routes/fpl');
