@@ -104,7 +104,7 @@ $(function(document){
 
       gridster.add_widget('<li id="player'+ pid + '"></li>', 1, 1, whereToDraw(), 1);
       $('li#player' + pid).html(function() {
-        return result.svg + '<p>' + result.lastName + '</p>';
+        return result.svg + '<p><i class="fa fa-calendar"></i>' + result.lastName + '</p>';
       });
 
       maxList.push({id: pid, max: result.max});

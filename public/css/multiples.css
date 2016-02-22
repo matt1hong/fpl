@@ -15,6 +15,10 @@ body {
 	background: #A4A4A4;
 }
 
+.fa {
+  margin-right: 5px;
+}
+
 .bar.positive {
   fill: white;
   shape-rendering: crispEdges;
